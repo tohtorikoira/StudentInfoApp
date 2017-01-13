@@ -1,0 +1,98 @@
+<!doctype html>
+<html ng-app="">
+
+<head>
+    <meta charset="utf-8">
+    <title>List of students</title>
+    <link rel="stylesheet" href="bootstrap-3.3.6-dist\bootstrap-3.3.6-dist\css\bootstrap.min.css" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic|Cormorant+Garamond:300,400,400italic,700,700italic|Quicksand:700">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/jQuery/jquery-1.12.3.min.js"></script>
+    <script src="bootstrap-3.3.6-dist\bootstrap-3.3.6-dist\js\bootstrap.min.js"></script>
+    <script src="scripts/script.js"></script>
+</head>
+
+<body ng-controller="MainController">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contacts</a></li>
+                <li><a href="#">Links</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="order">
+            Order:
+            <select ng-model="repoSortOrder">
+                <option value="+firstname">Firstname</option>
+                <option value="+lastname">Lastname</option>
+                <option value="+email">Email</option>
+            </select>
+        </div>
+        <div class="logo">
+            <img src="images/logo.png" alt="logo"></img>
+            <h1>Student info</h1>
+        </div>
+        <div>
+            <form name="Student" ng-model="searchForm">
+                <label>Firstname</label>
+                <input type="text" ng-model="newfirstName" value={{todo.firstname}}>
+                <label>Lastname</label>
+                <input type="text" ng-model="newlastName" value={{todo.lastname}}>
+                <label>Email</label>
+                <input type="text" ng-model="newEmail">
+                <input type="submit" value="Add" ng-click="addPerson(newfirstName, newlastName, newEmail)" ng-hide="showme">
+                <input type="submit" value="Update" ng-show="showme" ng-click="showme=false; update(currentId, newfirstName, newlastName, newEmail)">
+                <button type="button" class="btn btn-default" aria-label="Left Align" ng-click='showme=false; newfirstName = ""; newlastName = ""; newEmail =""' ng-show="showme">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <!-- for later use -->
+                    <!--  <th>Student number</th> -->
+                    <th></th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form name="modifyStudent" ng-model="modifyForm">
+                    <tr ng-repeat="todo in todos | orderBy: repoSortOrder">
+                        <td style="display:none;">{{todo.id}}</td>
+                        <td></td>
+                        <td>{{todo.firstname}}</td>
+                        <td>{{todo.lastname}}</td>
+                        <td>{{todo.email}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="delete(todo.id)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="modify(todo.id, todo.firstname, todo.lastname, todo.email)">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        Veera Karvonen 2017
+        <div>
+            Write graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
+        </div>
+    </footer>
+</body>
+
+</html>
